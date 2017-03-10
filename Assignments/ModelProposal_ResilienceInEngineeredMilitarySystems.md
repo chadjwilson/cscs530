@@ -12,16 +12,16 @@ Chad Wilson
 
 ### Goal 
 *****
- 
-_Provide a short, 1-3 sentence description of the goal of your model_
 
 The overall goal of this project is to create an agent-based model (ABM) of interconnected engineered, military systems that interact with one another in addition to a heterogeneous environment and an unpredictable enemy threat. Furthermore, I seek to gain a normative understanding through evaluation of various network configurations, functional allocations, and system behaviors that best lead to the desired emergence of resilience in this system-of-systems.
 
 &nbsp;  
 ### Justification
 ****
-_Short explanation on why you are using ABM_
+
 ABM is the modeling approach for this system under study. Each node in the network represents an individual, intelligent military system and acts independently and collectively to achieve a desired outcome. The environment in which these systems operate is often unknown and heterogeneous. The threats that these systems encounter are often unknown and heterogeneous as well. Based on these system characteristics and the desire to evaluate the emergence of higher level behavior forms a strong case for choosing ABM as the modeling approach.
+
+
 
 
 &nbsp; 
