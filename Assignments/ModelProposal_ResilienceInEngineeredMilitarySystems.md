@@ -15,6 +15,10 @@ Chad Wilson
  
 _Provide a short, 1-3 sentence description of the goal of your model_
 
+The overall goal of this project is the create an agent-based model (ABM) of interconnected engineered, military systems that interact with one another in addition to a nonhomogeneous environment and an unpredictable enemy threat. Furthermore, I seek to gain a normative understanding of through evaluation of various network configurations, function allocation, and system behaviors that best lead to an emergent resilient behavior 
+
+
+
 goal is normative understanding: How can agent-based models be used as laboratories for the discovery of good designs? ABM researchers pursuing this objective are interested in evaluating whether designs proposed for social policies, institutions, or processes will result in socially desirable system performance over time. Examples include design of auction systems, voting rules, and law enforcement. The general approach is akin to filling a bucket with water to determine if it leaks. An agent-based world is constructed that captures the salient aspects of a social system operating under the design. The world is then populated with privately motivated agents with learning capabilities and allowed to develop over time. The key issue is the extent to which the resulting world outcomes are efficient, fair, and orderly, despite attempts by these privately motivated agents to gain individual advantage through strategic behavior.
 
 &nbsp;  
