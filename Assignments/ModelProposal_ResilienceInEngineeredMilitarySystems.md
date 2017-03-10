@@ -13,7 +13,7 @@ Chad Wilson
 ### Goal 
 *****
 
-The overall goal of this project is to create an agent-based model (ABM) of interconnected engineered, military systems that interact with one another in addition to a heterogeneous environment and an unpredictable enemy threat. Furthermore, I seek to gain a normative understanding through evaluation of various network configurations, functional allocations, and system behaviors that best lead to the desired emergence of resilience in this system-of-systems.
+The overall goal of this project is to create an agent-based model (ABM) of interconnected engineered, military systems that interact with one another in addition to a heterogeneous environment and an unpredictable enemy threat. Furthermore, I seek to gain a normative understanding through evaluation of various network configurations, functional allocations, and system behaviors that best lead to the desired emergence of resilience in this system-of-systems (SoS).
 
 &nbsp;  
 ### Justification
@@ -28,7 +28,11 @@ ABM is the modeling approach for this system under study. Each node in the netwo
 ### Main Micro-level Processes and Macro-level Dynamics of Interest
 ****
 
-_Short overview of the key processes and/or relationships you are interested in using your model to explore. Will likely be something regarding emergent behavior that arises from individual interactions_
+**Macro-level Process**:  The military systems will be interconnected into a network arrangement analogous to an Army Company structure. This formation will be given a mission with a performance objective. The mission will direct the formation to traverse the environment and interact with the enemy. The formation will become degraded by various environmental conditions and compromised by enemy attacks. The overall performance objective of the formation will be to withstand these negative impacts while maintaining the required capability level.
+
+**Micro-level Proces**s: Each military system will be interconnected to a command system and its peer systems. Each military system will have a specified level of survivability (robustness). When a military system's survivability level is exceeded, it will disperse its functionality to its neighboring systems and then undergo maintenance for a period of time and be offline. Once repaired, this system will regain its functionality from its neighbors and become fully operational. As these systems move across the environment. particular system functions will be impacted by disparate environmental conditions causing a degradation in performance level of individual functions. Concurrently, these individual systems will be randomly attacked by enemy threats. The threats will attack specific functions and degrade them or render them inoperative which will require maintenance and downtime to repair.
+
+**Overal objective**: for the formation to maintain a defined capability level throughout its mission.
 
 &nbsp; 
 
