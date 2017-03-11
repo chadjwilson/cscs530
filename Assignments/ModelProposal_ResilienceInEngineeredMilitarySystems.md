@@ -47,27 +47,42 @@ ABM is the modeling approach for this system under study. Each node in the netwo
 **Dimensionality**:  the environment will be constructed as a 250x250 2-dimensional array consisting of 62,500 total positions (sections)
 
 **Environment variables**: 
-- coverage: an array, (1...5), signifying the amount of foilage or other physical structures within a section; least to most
-- terrain: an array, (1...5), signifying the ground condition and elevation of a section; mild to extreme 
-- hazard: an array, (1...5), signifying the amound of hazards within a section; negligible to catastrophic
+- coverage: an array, (-1...-5), signifying the amount of foilage or other physical structures within a section; least to most
+- terrain: an array, (-1...-5), signifying the ground condition and elevation of a section; mild to extreme 
+- hazard: an array, (-1...-5), signifying the amound of hazards within a section; negligible to catastrophic
 - threats: a nested array of 4 distinct threat types
- - mortars: an array, (1...5), signifying the impact level of a mortar attack at this sections on all system functions; negligible to catastrophic
- - ieds:  an array, (1...5), signifying the impact level of an ied attack at this section on all system functions (less than mortar attack); has less impact negligible to catastrophic
- - jamming:  an array, (1...5), signifying the impact level of a mortar attack at this section on C2 system function; negligible to catastrophic
- - nbc:  an array, (1...5), signifying the impact level of a mortar attack at this section on personnel; negligible to catastrophic
+ - mortars: an array, (-1...-5), signifying the impact level of a mortar attack at this sections on all system functions; negligible to catastrophic
+ - ieds:  an array, (-1...-5), signifying the impact level of an ied attack at this section on all system functions (less than mortar attack); has less impact negligible to catastrophic
+ - jamming:  an array, (-1...-5), signifying the impact level of a mortar attack at this section on C2 system function; negligible to catastrophic
+ - nbc:  an array, (-1...-5), signifying the impact level of a mortar attack at this section on personnel; negligible to catastrophic
                   
  **Environment methods**:
- - Initialization:
-  1.) Normal distribution of environmental conditions levels across all sections of the environment
-  2.) Random distribution of threats across 10% of the environment
+1) Normal distribution of environmental conditions levels across all sections of the environment
+2) Random distribution of threats across 10% of the environment
 
- 
- 
 ```
 # Include first pass of the code you are thinking of using to construct your environment
 # This may be a set of "patches-own" variables and a command in the "setup" procedure, a list, an array, or Class constructor
 # Feel free to include any patch methods/procedures you have. Filling in with pseudocode is ok! 
 # NOTE: If using Netlogo, remove "python" from the markdown at the top of this section to get a generic code block
+
+#Initialize environment
+ env = create array(250x250)
+ set_env_conditions()
+ set_env_threats()
+ 
+#Set Environment Conditions method
+ for each array position in env
+      set foilage_level = normal_distribution(-1...-5)
+      set terrain_level = normal_distribution(-1...-5) 
+      set hazard_level = normal_distribution(-1...-5) 
+      
+#Set Environment Threats method
+ for a random 10% set of all array positions in env    
+      set mortar_impact = -4 #impacts all system functions
+      set ied_impact = -2 #impacts all system functions
+      set jamming_impact = -3 #impacts C2 (Command & Control) system functions
+      set nbc_impact = -3 #impacts personnel
 ```
 
 &nbsp; 
