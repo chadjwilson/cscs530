@@ -173,7 +173,7 @@ ABM is the modeling approach for this system under study. Each node in the netwo
  
 **_Interaction Topology_**
 
-![alt text](https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwjGt5z8js3SAhVJ_IMKHbkqAOkQjRwIBw&url=http%3A%2F%2Fwww.globalsecurity.org%2Fmilitary%2Flibrary%2Fpolicy%2Farmy%2Ffm%2F3-21-11%2Fc01.htm&psig=AFQjCNGu3lBJfJ_ORMNqcWa5zDuWhfNImQ&ust=1489275833658537)
+![Army Company Structure](http://www.globalsecurity.org/military/library/policy/army/fm/3-21-11/image624.jpg)
 
 _Description of the topology of who interacts with whom in the system. Perfectly mixed? Spatial proximity? Along a network? CA neighborhood?_
  
