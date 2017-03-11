@@ -47,6 +47,7 @@ _Description of the environment in your model. Things to specify *if they apply*
 * _Dimensionality (e.g. 1D, 2D, etc.)_
 * _List of environment-owned variables (e.g. resources, states, roughness)_
 * _List of environment-owned methods/procedures (e.g. resource production, state change, etc.)_
+&nbsp; 
 **Boundary conditions**:  the environment will be bounded within a finite, symmetric space 
 **Dimensionality**:  the environment will be constructed as a 250x250 2-dimensional array consisting of 62,500 total positions (sections)
 **Environment variables**: 
