@@ -59,7 +59,7 @@ ABM is the modeling approach for this system under study. Each node in the netwo
  - nbc:  an array, (-1...-5), signifying the impact level of a mortar attack at this section on personnel; negligible to catastrophic
                   
 **Methods**:
-1) set_env_conditions: nrmal distribution of environmental conditions levels across all sections of the environment
+1) set_env_conditions: normal distribution of environmental conditions levels across all sections of the environment
 2) set_env_threats: random distribution of threats across 10% of the environment
 
 ```
@@ -92,26 +92,79 @@ ABM is the modeling approach for this system under study. Each node in the netwo
  - agent_role: a string that identifies the role of the military system within the unit structure; different roles have different specializations and, thus, different functional performance levels (leader, soldier or support)
  - agent_type: a string that identifies the type of the military system (motorized/non-motorized); impacts are increased by 1 for non-motorized types
  - agent_functions:  an array objects that identifies the functions of a military system and their specific performance levels (1...5)
+ - agent_transfer: an integer that identifes amount of functional performance value transferred to neighboring military systems; to be returned upon repair
+ - agent_failures: identifies number of active failures for each military system
  - agent_personnel:  an integer that identifies the overall performance of personnel within a military system; level depends on role and type 
-  - agent_location: an array, (x,y), that identifies the location/section of the agent within the environment 
-  - agent_maintenance: an integer representing number of days military system is to remain inoperable
+ - agent_location: an array, (x,y), that identifies the location/section of the military system within the environment 
+ - agent_inop: an integer representing number of days military system is to remain inoperable and under repair
  
 **Methods**:
- - move_agent:
- - impact_env_agent:
- - impact_threat_agent:
+ - init_unit: set network topology and assign initial agent variable
+ - move_agent:  move agent to random neighbor location
+ - assess_env_impact:  update functional performance levels based on environmental impacts
+ - assess_threat_impact:  update functional performance levels based on threat impacts
+ - transfer_agent_function: transfer agent functions if degraded below threshold (add remaining performance level to random neighbor)
+ - repair_agent: decrements inop time by 1 for each time step
  
- _Description of the "agents" in the system. Things to specify *if they apply*:
- 
-* _List of agent-owned variables (e.g. age, heading, ID, etc.)_
-* _List of agent-owned methods/procedures (e.g. move, consume, reproduce, die, etc.)_
-
-
-```python
+```
 # Include first pass of the code you are thinking of using to construct your agents
 # This may be a set of "turtle-own" variables and a command in the "setup" procedure, a list, an array, or Class constructor
 # Feel free to include any agent methods/procedures you have so far. Filling in with pseudocode is ok! 
 # NOTE: If using Netlogo, remove "python" from the markdown at the top of this section to get a generic code block
+
+#Initialize agents
+ unit = init_unit()
+ 
+#Initialize Unit method
+ create unit as graph
+ create agents as nodes
+ connect agents with edges
+ assign initial variable values to agents
+ exit
+ 
+#Move Agent method
+ for each agent check if not inop
+  move to random neighbor section if not occupied
+  else don't move
+ exit
+ 
+#Assess Environmental Impact method
+ for each agent check if not inop
+  update agent functional performance level due to environmental conditions
+  #foilage (-1...-5) impacts survivability (inverse: if -1 then -5 impact) and lethality (direct: if -1 then -1 impact)
+  #terrain (-1...-5) impacts mobility and C2 (direct: if -1 then -1 impact)
+  #hazard (-1...-5) impacts on personnel (direct: if -1 then -1 impact)
+ exit
+ 
+ #Assess Threat Impact method
+ for each agent check if not inop
+  update agent functional performance level due to environmental threats
+  #mortars (-4) impacts all functions and personnel performance goes to 0
+  #ieds (-2) impacts all functions and personnel performance goes in half
+  #jamming (-3) impacts C2 functions only
+  #nbc (-3) impacts personnel only
+ exit
+ 
+ #Transfer Agent Functionality method
+  for each agent if not inop
+   for each function
+    if personnel performance level is below performance threshold
+     then agent is inop and set agent repair time
+    if check functional performance level is less than performance threshold #system function degraded or failed
+     then transfer remaining performance value to random neighbor
+     update transfer account with amount of transferred performance value
+   if more than 2 system functions degraded or failed
+    then agent is inop and set agent repair time
+  exit
+    
+  #Repair Agent method
+  for each agent if inop
+   decrement inop time by 1
+   if agent inop time = 0 
+    then reset functional and personnel performance levels 
+    #functional performance is restored by neighbor agents where functional performance is not degraded
+    # personnel performance is reset to intial value
+  exit
 ```
 
 &nbsp; 
