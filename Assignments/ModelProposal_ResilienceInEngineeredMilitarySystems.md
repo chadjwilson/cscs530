@@ -28,7 +28,7 @@ ABM is the modeling approach for this system under study. Each node in the netwo
 ### Main Micro-level Processes and Macro-level Dynamics of Interest
 ****
 
-**Macro-level Process**:  The military systems will be interconnected into a network arrangement analogous to an Army Company structure. This formation will be given a mission with a performance objective. The mission will direct the formation to traverse the environment and interact with the enemy. The formation will become degraded by various environmental conditions and compromised by enemy attacks. The overall performance objective of the formation will be to withstand these negative impacts while maintaining the required capability level.
+**Macro-level Process**:  The military systems will be interconnected into a network arrangement analogous to a military unit structure. This formation will be given a mission with a performance objective. The mission will direct the formation to traverse the environment and interact with the enemy. The formation will become degraded by various environmental conditions and compromised by enemy attacks. The overall performance objective of the formation will be to withstand these negative impacts while maintaining the required capability level.
 
 **Micro-level Proces**s: Each military system will be interconnected to a command system and its peer systems. Each military system will have a specified level of survivability (robustness). When a military system's survivability level is exceeded, it will disperse its functionality to its neighboring systems and then undergo maintenance for a period of time and be offline. Once repaired, this system will regain its functionality from its neighbors and become fully operational. As these systems move across the environment. particular system functions will be impacted by disparate environmental conditions causing a degradation in performance level of individual functions. Concurrently, these individual systems will be randomly attacked by enemy threats. The threats will attack specific functions and degrade them or render them inoperative which will require maintenance and downtime to repair.
 
@@ -47,7 +47,12 @@ _Description of the environment in your model. Things to specify *if they apply*
 * _Dimensionality (e.g. 1D, 2D, etc.)_
 * _List of environment-owned variables (e.g. resources, states, roughness)_
 * _List of environment-owned methods/procedures (e.g. resource production, state change, etc.)_
-
+**Boundary conditions**:  the environment will be bounded within a finite, symmetric space 
+**Dimensionality**:  the environment will be constructed as a 250x250 2-dimensional array consisting of 62,500 total positions (sections)
+**Environment variables**: 
+          *coverage: an array, (1...5), signifying the amount of foilage or other physical structures within a section; least to most
+          *terrain: an array, (1...5), signifying the ground condition and elevation of a section; mild to extreme 
+          *hazard: an array, (1...5), signifying the amound of hazards within a section; negligible to catastrophic 
 
 ```python
 # Include first pass of the code you are thinking of using to construct your environment
