@@ -177,10 +177,10 @@ The agents of the ABM will be connected in a network topology analogous to the s
 During each time step each active agent of the network will move to a neighboring section and interact with its environment, take on impact from local threats and interact with neighboring agents if necessary.
 
 Here is the activity flow for each time step:
-1) move agents that are active
-2) assess impacts of active agents
-3) if too many failures then go inop and get repaired
-4) if personnel performance is too low go inop and heal
+ 1. move agents that are active
+ 2. assess impacts of active agents
+ 3. if too many failures then go inop and get repaired
+ 4. if personnel performance is too low go inop and heal
 
 &nbsp; 
 ### 4) Model Parameters and Initialization
