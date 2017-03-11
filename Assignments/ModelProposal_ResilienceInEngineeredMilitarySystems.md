@@ -198,9 +198,9 @@ Here is the activity flow for each time step:
   2. initialize environment
   3. initialize agents
   4. until mission_duration not met:
-   4.1. execute the model
-   4.2. draw model
-   4.3. update global variables (capability_level)
+  - execute the model
+  - draw model
+  - update global variables (capability_level)
  5. plot global variables (capability_level against effectiveness_level)
 
 &nbsp; 
