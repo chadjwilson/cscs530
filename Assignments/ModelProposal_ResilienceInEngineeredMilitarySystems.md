@@ -52,8 +52,15 @@ _Description of the environment in your model. Things to specify *if they apply*
 **Environment variables**: 
           *coverage: an array, (1...5), signifying the amount of foilage or other physical structures within a section; least to most
           *terrain: an array, (1...5), signifying the ground condition and elevation of a section; mild to extreme 
-          *hazard: an array, (1...5), signifying the amound of hazards within a section; negligible to catastrophic 
-
+          *hazard: an array, (1...5), signifying the amound of hazards within a section; negligible to catastrophic
+          *threats: a nested array of 4 distinct threat types
+                  *mortars: an array, (1...5), signifying the impact level of a mortar attack at this sections on all system functions; negligible to catastrophic
+                  *ieds:  an array, (1...5), signifying the impact level of an ied attack at this section on all system functions (less than mortar attack); has less impact negligible to catastrophic
+                  *jamming:  an array, (1...5), signifying the impact level of a mortar attack at this section on C2 system function; negligible to catastrophic
+                  *nbc:  an array, (1...5), signifying the impact level of a mortar attack at this section on personnel; negligible to catastrophic
+                  
+ **Environment methods**:         
+ 
 ```python
 # Include first pass of the code you are thinking of using to construct your environment
 # This may be a set of "patches-own" variables and a command in the "setup" procedure, a list, an array, or Class constructor
