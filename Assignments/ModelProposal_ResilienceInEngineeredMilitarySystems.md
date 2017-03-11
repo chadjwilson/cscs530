@@ -42,8 +42,10 @@ ABM is the modeling approach for this system under study. Each node in the netwo
 &nbsp; 
 ### 1) Environment
 
-**Boundary conditions**:  the environment will be bounded within a finite, symmetric space 
+**Boundary conditions**:  the environment will be bounded within a finite, symmetric space
+
 **Dimensionality**:  the environment will be constructed as a 250x250 2-dimensional array consisting of 62,500 total positions (sections)
+
 **Environment variables**: 
           *coverage: an array, (1...5), signifying the amount of foilage or other physical structures within a section; least to most
           *terrain: an array, (1...5), signifying the ground condition and elevation of a section; mild to extreme 
