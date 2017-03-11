@@ -42,30 +42,27 @@ ABM is the modeling approach for this system under study. Each node in the netwo
 &nbsp; 
 ### 1) Environment
 
-**Boundary conditions**:  the environment will be bounded within a finite, symmetric space
+**Description**: the environment will represent a military operational environment and subdivided into sections to which military systems will interact directly with conditions and threats of their occupied section
+
+**Boundary conditions**:  the environment will be bounded within a finite, symmetric space 
 
 **Dimensionality**:  the environment will be constructed as a 250x250 2-dimensional array consisting of 62,500 total positions (sections)
 
-**Environment variables**: 
+**Variables**: 
 - coverage: an array, (-1...-5), signifying the amount of foilage or other physical structures within a section; least to most
 - terrain: an array, (-1...-5), signifying the ground condition and elevation of a section; mild to extreme 
 - hazard: an array, (-1...-5), signifying the amound of hazards within a section; negligible to catastrophic
-- threats: a nested array of 4 distinct threat types
+- threats: an array of 4 objects of each distinct threat type
  - mortars: an array, (-1...-5), signifying the impact level of a mortar attack at this sections on all system functions; negligible to catastrophic
  - ieds:  an array, (-1...-5), signifying the impact level of an ied attack at this section on all system functions (less than mortar attack); has less impact negligible to catastrophic
  - jamming:  an array, (-1...-5), signifying the impact level of a mortar attack at this section on C2 system function; negligible to catastrophic
  - nbc:  an array, (-1...-5), signifying the impact level of a mortar attack at this section on personnel; negligible to catastrophic
                   
- **Environment methods**:
-1) Normal distribution of environmental conditions levels across all sections of the environment
-2) Random distribution of threats across 10% of the environment
+**Methods**:
+1) set_env_conditions: nrmal distribution of environmental conditions levels across all sections of the environment
+2) set_env_threats: random distribution of threats across 10% of the environment
 
 ```
-# Include first pass of the code you are thinking of using to construct your environment
-# This may be a set of "patches-own" variables and a command in the "setup" procedure, a list, an array, or Class constructor
-# Feel free to include any patch methods/procedures you have. Filling in with pseudocode is ok! 
-# NOTE: If using Netlogo, remove "python" from the markdown at the top of this section to get a generic code block
-
 #Initialize environment
  env = create array(250x250)
  set_env_conditions()
@@ -88,8 +85,23 @@ ABM is the modeling approach for this system under study. Each node in the netwo
 &nbsp; 
 
 ### 2) Agents
+
+**Description**:  the agents will represent an individual military system of type motorized on non-motorized (dimounted squad/team); agents will be networked together into a military unit topology analagous with an Army Company structure; agents will interact with one another and their local environment
+
+**Variables**:
+ - agent_role: a string that identifies the role of the military system within the unit structure; different roles have different specializations and, thus, different functional performance levels (leader, soldier or support)
+ - agent_type: a string that identifies the type of the military system (motorized/non-motorized); impacts are increased by 1 for non-motorized types
+ - agent_functions:  an array objects that identifies the functions of a military system and their specific performance levels (1...5)
+ - agent_personnel:  an integer that identifies the overall performance of personnel within a military system; level depends on role and type 
+  - agent_location: an array, (x,y), that identifies the location/section of the agent within the environment 
+  - agent_maintenance: an integer representing number of days military system is to remain inoperable
  
- _Description of the "agents" in the system. Things to specify *if they apply*:_
+**Methods**:
+ - move_agent:
+ - impact_env_agent:
+ - impact_threat_agent:
+ 
+ _Description of the "agents" in the system. Things to specify *if they apply*:
  
 * _List of agent-owned variables (e.g. age, heading, ID, etc.)_
 * _List of agent-owned methods/procedures (e.g. move, consume, reproduce, die, etc.)_
@@ -107,6 +119,8 @@ ABM is the modeling approach for this system under study. Each node in the netwo
 ### 3) Action and Interaction 
  
 **_Interaction Topology_**
+
+![alt text](https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwjGt5z8js3SAhVJ_IMKHbkqAOkQjRwIBw&url=http%3A%2F%2Fwww.globalsecurity.org%2Fmilitary%2Flibrary%2Fpolicy%2Farmy%2Ffm%2F3-21-11%2Fc01.htm&psig=AFQjCNGu3lBJfJ_ORMNqcWa5zDuWhfNImQ&ust=1489275833658537)
 
 _Description of the topology of who interacts with whom in the system. Perfectly mixed? Spatial proximity? Along a network? CA neighborhood?_
  
