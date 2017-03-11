@@ -56,9 +56,14 @@ ABM is the modeling approach for this system under study. Each node in the netwo
  - jamming:  an array, (1...5), signifying the impact level of a mortar attack at this section on C2 system function; negligible to catastrophic
  - nbc:  an array, (1...5), signifying the impact level of a mortar attack at this section on personnel; negligible to catastrophic
                   
- **Environment methods**:         
+ **Environment methods**:
+ - Initialization:
+  1.) Normal distribution of environmental conditions levels across all sections of the environment
+  2.) Random distribution of threats across 10% of the environment
+
  
-```python
+ 
+```
 # Include first pass of the code you are thinking of using to construct your environment
 # This may be a set of "patches-own" variables and a command in the "setup" procedure, a list, an array, or Class constructor
 # Feel free to include any patch methods/procedures you have. Filling in with pseudocode is ok! 
