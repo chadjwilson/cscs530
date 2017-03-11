@@ -30,9 +30,9 @@ ABM is the modeling approach for this system under study. Each node in the netwo
 
 **Macro-level Process**:  The military systems will be interconnected into a network arrangement analogous to a military unit structure. This formation will be given a mission with a performance objective. The mission will direct the formation to traverse the environment and interact with the enemy. The formation will become degraded by various environmental conditions and compromised by enemy attacks. The overall performance objective of the formation will be to withstand these negative impacts while maintaining the required capability level.
 
-**Micro-level Proces**s: Each military system will be interconnected to a command system and its peer systems. Each military system will have a specified level of survivability (robustness). When a military system's survivability level is exceeded, it will disperse its functionality to its neighboring systems and then undergo maintenance for a period of time and be offline. Once repaired, this system will regain its functionality from its neighbors and become fully operational. As these systems move across the environment. particular system functions will be impacted by disparate environmental conditions causing a degradation in performance level of individual functions. Concurrently, these individual systems will be randomly attacked by enemy threats. The threats will attack specific functions and degrade them or render them inoperative which will require maintenance and downtime to repair.
+**Micro-level Process**: Each military system will be interconnected to a command system and its peer systems. Each military system will have a specified level of survivability (robustness). When a military system's survivability level is exceeded, it will disperse its functionality to its neighboring systems and then undergo maintenance for a period of time and be offline. Once repaired, this system will regain its functionality from its neighbors and become fully operational. As these systems move across the environment. particular system functions will be impacted by disparate environmental conditions causing a degradation in performance level of individual functions. Concurrently, these individual systems will be randomly attacked by enemy threats. The threats will attack specific functions and degrade them or render them inoperative which will require maintenance and downtime to repair.
 
-**Overal objective**: for the formation to maintain a defined capability level throughout its mission.
+**Overall objective**: for the formation to maintain a defined capability level throughout its mission.
 
 &nbsp; 
 
@@ -49,12 +49,12 @@ ABM is the modeling approach for this system under study. Each node in the netwo
 **Dimensionality**:  the environment will be constructed as a 250x250 2-dimensional array consisting of 62,500 total positions (sections)
 
 **Variables**: 
-- coverage: an array, (-1...-5), signifying the amount of foilage or other physical structures within a section; least to most
+- coverage: an array, (-1...-5), signifying the amount of foliage or other physical structures within a section; least to most
 - terrain: an array, (-1...-5), signifying the ground condition and elevation of a section; mild to extreme 
-- hazard: an array, (-1...-5), signifying the amound of hazards within a section; negligible to catastrophic
+- hazard: an array, (-1...-5), signifying the amount of hazards within a section; negligible to catastrophic
 - threats: an array of 4 objects of each distinct threat type
  - mortars: an array, (-1...-5), signifying the impact level of a mortar attack at this sections on all system functions; negligible to catastrophic
- - ieds:  an array, (-1...-5), signifying the impact level of an ied attack at this section on all system functions (less than mortar attack); has less impact negligible to catastrophic
+ - ieds:  an array, (-1...-5), signifying the impact level of an IED (Improvised Explosive Device) attack at this section on all system functions (less than mortar attack); has less impact negligible to catastrophic
  - jamming:  an array, (-1...-5), signifying the impact level of a mortar attack at this section on C2 system function; negligible to catastrophic
  - nbc:  an array, (-1...-5), signifying the impact level of a mortar attack at this section on personnel; negligible to catastrophic
                   
@@ -86,13 +86,13 @@ ABM is the modeling approach for this system under study. Each node in the netwo
 
 ### 2) Agents
 
-**Description**:  the agents will represent an individual military system of type motorized on non-motorized (dimounted squad/team); agents will be networked together into a military unit topology analagous with an Army Company structure; agents will interact with one another and their local environment
+**Description**:  the agents will represent an individual military system of type motorized on non-motorized (dismounted squad/team); agents will be networked together into a military unit topology analogous with an Army Company structure; agents will interact with one another and their local environment
 
 **Variables**:
  - agent_role: a string that identifies the role of the military system within the unit structure; different roles have different specializations and, thus, different functional performance levels (leader, soldier or support)
  - agent_type: a string that identifies the type of the military system (motorized/non-motorized); impacts are increased by 1 for non-motorized types
  - agent_functions:  an array objects that identifies the functions of a military system and their specific performance levels (1...5)
- - agent_transfer: an integer that identifes amount of functional performance value transferred to neighboring military systems; to be returned upon repair
+ - agent_transfer: an integer that identifies amount of functional performance value transferred to neighboring military systems; to be returned upon repair
  - agent_failures: identifies number of active failures for each military system
  - agent_personnel:  an integer that identifies the overall performance of personnel within a military system; level depends on role and type 
  - agent_location: an array, (x,y), that identifies the location/section of the military system within the environment 
@@ -107,11 +107,6 @@ ABM is the modeling approach for this system under study. Each node in the netwo
  - repair_agent: decrements inop time by 1 for each time step
  
 ```
-# Include first pass of the code you are thinking of using to construct your agents
-# This may be a set of "turtle-own" variables and a command in the "setup" procedure, a list, an array, or Class constructor
-# Feel free to include any agent methods/procedures you have so far. Filling in with pseudocode is ok! 
-# NOTE: If using Netlogo, remove "python" from the markdown at the top of this section to get a generic code block
-
 #Initialize agents
  unit = init_unit()
  
@@ -131,7 +126,7 @@ ABM is the modeling approach for this system under study. Each node in the netwo
 #Assess Environmental Impact method
  for each agent check if not inop
   update agent functional performance level due to environmental conditions
-  #foilage (-1...-5) impacts survivability (inverse: if -1 then -5 impact) and lethality (direct: if -1 then -1 impact)
+  #coverage (-1...-5) impacts survivability (inverse: if -1 then -5 impact) and lethality (direct: if -1 then -1 impact)
   #terrain (-1...-5) impacts mobility and C2 (direct: if -1 then -1 impact)
   #hazard (-1...-5) impacts on personnel (direct: if -1 then -1 impact)
  exit
@@ -163,7 +158,7 @@ ABM is the modeling approach for this system under study. Each node in the netwo
    if agent inop time = 0 
     then reset functional and personnel performance levels 
     #functional performance is restored by neighbor agents where functional performance is not degraded
-    # personnel performance is reset to intial value
+    # personnel performance is reset to initial value
   exit
 ```
 
@@ -172,36 +167,50 @@ ABM is the modeling approach for this system under study. Each node in the netwo
 ### 3) Action and Interaction 
  
 **_Interaction Topology_**
+ 
+The agents of the ABM will be connected in a network topology analogous to the structure depicted in the image below. The network will be a fixed structure and will not be adaptive at this time.
 
 ![Army Company Structure](http://www.globalsecurity.org/military/library/policy/army/fm/3-21-11/image624.jpg)
-
-_Description of the topology of who interacts with whom in the system. Perfectly mixed? Spatial proximity? Along a network? CA neighborhood?_
  
 **_Action Sequence_**
 
-_What does an agent, cell, etc. do on a given turn? Provide a step-by-step description of what happens on a given turn for each part of your model_
+During each time step each active agent of the network will move to a neighboring section and interact with its environment, take on impact from local threats and interact with neighboring agents if necessary.
 
-1. Step 1
-2. Step 2
-3. Etc...
+Here is the activity flow for each time step:
+1) move agents that are active
+2) assess impacts of active agents
+3) if too many failures then go inop and get repaired
+4) if personnel performance is too low go inop and heal
 
 &nbsp; 
 ### 4) Model Parameters and Initialization
 
-_Describe and list any global parameters you will be applying in your model._
+**Global Variables**:  
+ - capability_level:  identifies the cumulative functional performance of all agents and their functions
+ - effectiveness_level:  identifies the acceptable level of capability throughout a mission to deem it a success
+ - performance_threshold:  identifies the level when functional performances are considered degraded or failed
+ - repair_time:  identifies the amount of time (in steps) an inop agent will be in maintenance and not active
+ - mission_duration: identifies the number of time steps to execute the model
+ - threat_level (future use):  identifies the cumulative threat level of all environment sections
 
-_Describe how your model will be initialized_
-
-_Provide a high level, step-by-step description of your schedule during each "tick" of the model_
+**Simulation Procedure**:  
+ 1) initialize global variables
+ 2) initialize environment
+ 3) initialize agents
+ 4) until mission_duration not met:
+   4.1) execute the model
+   4.2) draw model
+   4.3) update global variables (capability_level)
+ 5) plot global variables (capability_level against effectiveness_level)
 
 &nbsp; 
 
 ### 5) Assessment and Outcome Measures
 
-_What quantitative metrics and/or qualitative features will you use to assess your model outcomes?_
+The model will be assessed by evaluating how well various unit structures and functional performance allocations are able to uphold the capability_level of the overall unit to a desired effectiveness_level for the duration of a mission.
 
 &nbsp; 
 
 ### 6) Parameter Sweep
 
-_What parameters are you most interested in sweeping through? What value ranges do you expect to look at for your analysis?_
+In order to determine which unit structures and functional performance allocations perform the best (smallest variance between capability_level and effectiveness_level over duration of mission) relative to one another, a parameter sweep will be conducted against the functional performance levels in addition to random structuring of the unit topology.
