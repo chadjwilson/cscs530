@@ -22,8 +22,6 @@ The overall goal of this project is to create an agent-based model (ABM) of inte
 ABM is the modeling approach for this system under study. Each node in the network represents an individual, intelligent military system and acts independently and collectively to achieve a desired outcome. The environment in which these systems operate is often unknown and heterogeneous. The threats that these systems encounter are often unknown and heterogeneous as well. Based on these system characteristics and the desire to evaluate the emergence of higher level behavior forms a strong case for choosing ABM as the modeling approach.
 
 
-
-
 &nbsp; 
 ### Main Micro-level Processes and Macro-level Dynamics of Interest
 ****
@@ -33,6 +31,10 @@ ABM is the modeling approach for this system under study. Each node in the netwo
 **Micro-level Process**: Each military system will be interconnected to a command system and its peer systems. Each military system will have a specified level of survivability (robustness). When a military system's survivability level is exceeded, it will disperse its functionality to its neighboring systems and then undergo maintenance for a period of time and be offline. Once repaired, this system will regain its functionality from its neighbors and become fully operational. As these systems move across the environment. particular system functions will be impacted by disparate environmental conditions causing a degradation in performance level of individual functions. Concurrently, these individual systems will be randomly attacked by enemy threats. The threats will attack specific functions and degrade them or render them inoperative which will require maintenance and downtime to repair.
 
 **Overall objective**: for the formation to maintain a defined capability level throughout its mission.
+
+&nbsp; 
+
+_**LS Comments:** Excellent set up and overview._
 
 &nbsp; 
 
@@ -57,10 +59,15 @@ ABM is the modeling approach for this system under study. Each node in the netwo
  - ieds:  an array, (-1...-5), signifying the impact level of an IED (Improvised Explosive Device) attack at this section on all system functions (less than mortar attack); has less impact negligible to catastrophic
  - jamming:  an array, (-1...-5), signifying the impact level of a mortar attack at this section on C2 system function; negligible to catastrophic
  - nbc:  an array, (-1...-5), signifying the impact level of a mortar attack at this section on personnel; negligible to catastrophic
-                  
+
+_**LS Comments:** For this first pass model/purposes of getting something up and running by the end of the class, I might suggest using just one generic variable like "hospitableness" to get at the overall level of anatagonism in the environment and another variable to get at "threats". In addition to time constraints, the principle of "start simple, get more complicated" really applies here. Starting with as few environmental variables as feasible will not only streamline and simplify the base model build, it will also make it **vastly** easier to understand the baseline dynamics of your model and reduce the parameter space you will need to search. Once you've got this central model built, you can then come back in and add this more complex set._
+
+
 **Methods**:
 1) set_env_conditions: normal distribution of environmental conditions levels across all sections of the environment
 2) set_env_threats: random distribution of threats across 10% of the environment
+
+_**LS Comments:** Looks good._
 
 ```
 #Initialize environment
@@ -106,6 +113,14 @@ ABM is the modeling approach for this system under study. Each node in the netwo
  - transfer_agent_function: transfer agent functions if degraded below threshold (add remaining performance level to random neighbor)
  - repair_agent: decrements inop time by 1 for each time step
  
+&nbsp; 
+_**LS Comments:** As with the environmental variables, I will again encourage you to think about how you can begin with a simplification of what you have here. Specifically, you might want to start by trying to identify the core elements that you expect to be the main drivers/necessary components for the dynamics you are interested in._ 
+
+_The following might do this: In terms of variables, you might think of agents just owning 1) Current level of intended functionality, 2) Inop? state indicator and Inop counter, 3) Location. In terms of methods, initialization will be actually be handled at the model level, and you can potentially collapse what you have here into 1) Move, 2)Update current level of perfoming ones intended functionality (which might be split into a baseline value that is subtracted from per a combination environment inhospitality, attack, and having to take on neighbors' functionalities when they are inoperative -this could all be handled via one function as opposed to several different methods), with a condition that functionality = 0 triggering a transition to "inop? = True" for a set period of time that can be set to update using the same method._
+
+_Once you have this basic framework established and running, you can then go in and complicate what variables feed into which methods. Of course, all this is ultimately up to you to decide with regard with what you want to shoot for in the immediacy!_
+ 
+ 
 ```
 #Initialize agents
  unit = init_unit()
@@ -130,6 +145,14 @@ ABM is the modeling approach for this system under study. Each node in the netwo
   #terrain (-1...-5) impacts mobility and C2 (direct: if -1 then -1 impact)
   #hazard (-1...-5) impacts on personnel (direct: if -1 then -1 impact)
  exit
+ 
+ ########################
+ # LS Comments: See above comments on simplification. I might also suggest ignoring changes 
+ # to mobility for the time and adding it back in later (or just having it such that if a
+ # unit is inop, it and its neighbors can't move maybe?). Another question I had was whether
+ # you wanted "attacks" to do damage probabilistically? If not, you could roll those into
+ # "inhospitability" as well.
+ ##########################
  
  #Assess Threat Impact method
  for each agent check if not inop
@@ -172,6 +195,8 @@ The agents of the ABM will be connected in a network topology analogous to the s
 
 ![Army Company Structure](http://www.globalsecurity.org/military/library/policy/army/fm/3-21-11/image624.jpg)
  
+_**LS Comments:** Good to think about here how place in the topology currently indicates role. Might mean that if it is already implicit within the model, you do not need to explicitly designate it except for maybe labeling purposes._
+
 **_Action Sequence_**
 
 During each time step each active agent of the network will move to a neighboring section and interact with its environment, take on impact from local threats and interact with neighboring agents if necessary.
@@ -181,6 +206,8 @@ Here is the activity flow for each time step:
  2. assess impacts of active agents
  3. if too many failures then go inop and get repaired
  4. if personnel performance is too low go inop and heal
+ 
+_**LS Comments:** Order looks good, but see earlier comments on ways to simplify._
 
 &nbsp; 
 ### 4) Model Parameters and Initialization
@@ -192,6 +219,10 @@ Here is the activity flow for each time step:
  - repair_time:  identifies the amount of time (in steps) an inop agent will be in maintenance and not active
  - mission_duration: identifies the number of time steps to execute the model
  - threat_level (future use):  identifies the cumulative threat level of all environment sections
+
+&nbsp; 
+
+_**LS Comments:** If following prior suggestions, some of these would turn into a single "Functionality_level" for agents. In initialization, you can also vary the "hostility" of the environmental variables by increasing the absolute value of the mean of the probability distribution you are drawing from._
 
 **Simulation Procedure**:  
   1. initialize global variables
@@ -211,3 +242,6 @@ The model will be assessed by evaluating how well various unit structures and fu
 ### 6) Parameter Sweep
 
 In order to determine which unit structures and functional performance allocations perform the best (smallest variance between capability_level and effectiveness_level over duration of mission) relative to one another, a parameter sweep will be conducted against the functional performance levels in addition to random structuring of the unit topology.
+
+_**LS Comments:** I think in the long run, this has the potential to be a very informative, flexible model that will be able to be modified and extended to a lot of different scenarios quite readily and to good effect (including versions that might potentially be very strongly empircally grounded). In the short term, I'd advise you prioritize a developing and understanding a much simpler, baseline version. If nothing else, as currently proposed you would have a ~gigantic~ parameter space to sweep which translates into making it very difficult to develop a deep understanding of what your model is doing (this is before even getting to the large amount of coding and potential for bugs the more complex version entails!). In any case, look forward to what you develop with this and where it goes!_
+
